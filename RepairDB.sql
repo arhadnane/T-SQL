@@ -16,16 +16,15 @@ SELECT
     [d].[compatibility_level] ,
     [d].[collation_name],
 	d.database_id
-FROM master.sys.databases d where d.database_id >5
+FROM master.sys.databases d where d.database_id >4
 */
 
-SELECT @cnt=count(d.database_id) FROM master.sys.databases d where d.database_id >5
+SELECT @cnt=count(d.database_id) FROM master.sys.databases d where d.database_id >4
 --SELECT top 1  @database_id=d.database_id FROM master.sys.databases d where d.database_id >5 order by database_id asc
 
 WHILE (@i<=@cnt)
 BEGIN
-	SELECT top 1  @DatabaseName=[d].[name] FROM master.sys.databases d where d.database_id >5  and d.database_id = @i+5
-	SELECT top 1  @database_id=[d].database_id FROM master.sys.databases d where d.database_id >5  and d.database_id = @i+5
+	SELECT top 1  @DatabaseName=[d].[name] FROM master.sys.databases d where d.database_id >5  and d.database_id = @i+4
 	IF (@DatabaseName !='')
 	BEGIN
 		SET @table=@DatabaseName 
