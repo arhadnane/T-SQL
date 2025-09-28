@@ -1,9 +1,13 @@
-USE [YourDatabaseName]; -- Replace with your database name
-GO
+/*
+IndexMaintenanceScript.sql
+Purpose: Rebuild or reorganize fragmented non-heap indexes based on thresholds.
+Usage: Set the database context (USE YourDb) before running or edit below.
+*/
 
+-- Edit if needed
+-- USE [YourDatabaseName];
 SET NOCOUNT ON;
 
--- Declare variables for iteration
 DECLARE @object_id INT;
 DECLARE @index_id INT;
 DECLARE @partition_number INT;
@@ -12,9 +16,7 @@ DECLARE @schema_name NVARCHAR(256);
 DECLARE @table_name NVARCHAR(256);
 DECLARE @fragmentation FLOAT;
 
--- Temporary table to store index fragmentation details
-IF OBJECT_ID('tempdb..#IndexStats') IS NOT NULL
-    DROP TABLE #IndexStats;
+IF OBJECT_ID('tempdb..#IndexStats') IS NOT NULL DROP TABLE #IndexStats;
 
 CREATE TABLE #IndexStats (
     ObjectID INT,
@@ -26,7 +28,6 @@ CREATE TABLE #IndexStats (
     Fragmentation FLOAT
 );
 
--- Populate the temporary table with fragmentation data
 INSERT INTO #IndexStats
 SELECT 
     s.object_id AS ObjectID,
@@ -43,13 +44,11 @@ JOIN sys.objects AS o
     ON s.object_id = o.object_id
 JOIN sys.schemas AS sch
     ON o.schema_id = sch.schema_id
-WHERE i.type > 0 -- Only include non-heap indexes
-    AND s.avg_fragmentation_in_percent > 5; -- Only fragmented indexes
+WHERE i.type > 0 -- Only non-heap indexes
+  AND s.avg_fragmentation_in_percent > 5;
 
--- Cursor to iterate through fragmented indexes
 DECLARE IndexCursor CURSOR FOR
-SELECT 
-    ObjectID, IndexID, PartitionNumber, IndexName, SchemaName, TableName, Fragmentation
+SELECT ObjectID, IndexID, PartitionNumber, IndexName, SchemaName, TableName, Fragmentation
 FROM #IndexStats;
 
 OPEN IndexCursor;
@@ -80,7 +79,6 @@ END;
 CLOSE IndexCursor;
 DEALLOCATE IndexCursor;
 
--- Clean up
 DROP TABLE #IndexStats;
 
 PRINT 'Index maintenance completed.';
