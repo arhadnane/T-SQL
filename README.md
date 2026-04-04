@@ -66,7 +66,9 @@ EXEC dbo.usp_QuickSearch @Search = N'Laptop';
 SELECT TOP 20 * FROM dbo.AuditLog ORDER BY AuditID DESC;
 
 -- Check index usage
-EXEC SampleToolkit/07-index-usage.sql;
+-- Open and run SampleToolkit/07-index-usage.sql in SSMS
+-- Or, in SQLCMD mode, include it with:
+-- :r SampleToolkit/07-index-usage.sql
 ```
 
 ---
