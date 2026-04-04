@@ -1,6 +1,6 @@
 # T-SQL Utilities
 
-[![SQL Server](https://img.shields.io/badge/SQL%20Server-2012%20SP4%2B-blue)](https://www.microsoft.com/sql-server)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-2017%2B-blue)](https://www.microsoft.com/sql-server)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintenance-Active-brightgreen)](https://github.com/arhadnane/T-SQL)
 
@@ -81,9 +81,9 @@ SELECT TOP 20 * FROM dbo.AuditLog ORDER BY AuditID DESC;
 |--------|----------|----------|----------|----------|----------|----------|-------|
 | **Analysis** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | Standard T-SQL |
 | **Maintenance** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | Index maintenance |
-| **Metadata** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | System views |
+| **Metadata** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | Requires STRING_AGG (SQL 2017+) |
 | **Recovery** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | Backup/restore |
-| **SampleToolkit** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | Compatibility mode 110+ |
+| **SampleToolkit** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | Requires STRING_AGG (SQL 2017+) |
 | **SecurityAudit** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | Server permissions |
 
 ### Advanced Features (Enterprise/Developer Editions)
@@ -169,7 +169,7 @@ SELECT TOP 20 * FROM dbo.AuditLog ORDER BY AuditID DESC;
 ## 🔧 Prerequisites
 
 ### Minimum Requirements
-- **SQL Server**: 2012 SP4 or later
+- **SQL Server**: 2017 or later (some scripts use `STRING_AGG`, which requires SQL Server 2017+)
 - **Permissions**: `VIEW SERVER STATE` for diagnostics
 - **SSMS**: 2016+ recommended (for IntelliSense)
 
