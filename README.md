@@ -1,6 +1,6 @@
 # T-SQL Utilities
 
-[![SQL Server](https://img.shields.io/badge/SQL%20Server-2016%2B-blue)](https://www.microsoft.com/sql-server)
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-2012%20SP4%2B-blue)](https://www.microsoft.com/sql-server)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintenance-Active-brightgreen)](https://github.com/arhadnane/T-SQL)
 
