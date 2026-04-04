@@ -18,7 +18,7 @@ EXEC('USE ' + QUOTENAME(@DatabaseName));
     JOIN sys.schemas sch ON sch.schema_id = t.schema_id
     JOIN sys.indexes i ON i.object_id = t.object_id AND i.index_id IN (0,1)
     JOIN sys.partitions p ON p.object_id = t.object_id AND p.index_id = i.index_id
-    JOIN sys.allocation_units a ON a.container_id = p.partition_id
+    JOIN sys.allocation_units a ON a.container_id = p.hobt_id
 )
 SELECT 
     SchemaName,

@@ -56,7 +56,8 @@ SELECT
         ELSE 'Recent data - Keep'
     END AS Recommendation
 FROM sys.partitions p
-JOIN sys.partition_schemes ps ON p.partition_id = ps.data_space_id
+JOIN sys.indexes ix ON ix.object_id = p.object_id AND ix.index_id = p.index_id
+JOIN sys.partition_schemes ps ON ps.data_space_id = ix.data_space_id
 JOIN sys.partition_functions pf ON pf.function_id = ps.function_id
 LEFT JOIN sys.partition_range_values prv 
     ON prv.function_id = pf.function_id AND prv.boundary_id = p.partition_number

@@ -37,7 +37,8 @@ SELECT
     a.total_pages * 8 / 1024 AS SizeMB,
     ds.name AS Filegroup
 FROM sys.partitions p
-JOIN sys.partition_schemes ps ON ps.data_space_id = p.partition_id
+JOIN sys.indexes ix ON ix.object_id = p.object_id AND ix.index_id = p.index_id
+JOIN sys.partition_schemes ps ON ps.data_space_id = ix.data_space_id
 JOIN sys.partition_functions pf ON pf.function_id = ps.function_id
 LEFT JOIN sys.partition_range_values prv 
     ON prv.function_id = pf.function_id 
