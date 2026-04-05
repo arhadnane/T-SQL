@@ -7,14 +7,14 @@
 CREATE OR ALTER VIEW dbo.vw_ServerHealth
 AS
 WITH CPU_Stats AS (
-    SELECT TOP 1 
-        avg_cpu_percent = (SELECT AVG(cpu) FROM (
-            SELECT cpu FROM sys.dm_os_ring_buffers 
-            WHERE ring_buffer_type = 'RING_BUFFER_SCHEDULER_MONITOR' 
-            AND CAST(record AS varbinary(max)) LIKE 0x01% 
-            -- Simplified for logic, would use a more robust XML/Binary parse in prod
-        ) AS t)
-    FROM sys.dm_os_sys_info
+    SELECT TOP 1
+        ring.record.value('(/Record/SchedulerMonitorEvent/SystemHealth/ProcessUtilization)[1]', 'int') AS avg_cpu_percent
+    FROM (
+        SELECT CAST(record AS xml) AS record
+        FROM sys.dm_os_ring_buffers
+        WHERE ring_buffer_type = N'RING_BUFFER_SCHEDULER_MONITOR'
+    ) AS ring
+    ORDER BY ring.record.value('(/Record/@id)[1]', 'bigint') DESC
 ),
 Memory_Stats AS (
     SELECT 

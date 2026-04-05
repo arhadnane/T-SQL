@@ -13,7 +13,7 @@ DECLARE @DbName sysname = N'MyDb'; -- EDIT
 ), diff_bak AS (
     SELECT TOP 1 b.backup_set_id, b.first_lsn, b.last_lsn
     FROM msdb.dbo.backupset b
-    JOIN full_bak f ON b.database_name = @DbName AND b.type = 'I' AND b.database_name = @DbName AND b.checkpoint_lsn >= f.first_lsn AND b.checkpoint_lsn <= f.last_lsn
+    JOIN full_bak f ON b.database_name = @DbName AND b.type = 'I' AND b.checkpoint_lsn >= f.first_lsn AND b.checkpoint_lsn <= f.last_lsn
     ORDER BY b.backup_finish_date DESC
 ), logs AS (
     SELECT b.backup_set_id, b.first_lsn, b.last_lsn, b.backup_finish_date

@@ -21,12 +21,13 @@ GO
 -- ====== Add memory-optimized filegroup ======
 IF NOT EXISTS (SELECT 1 FROM sys.filegroups WHERE type = 'FX')
 BEGIN
+    DECLARE @DataPath nvarchar(260) = CAST(SERVERPROPERTY('InstanceDefaultDataPath') AS nvarchar(260));
+
     ALTER DATABASE SSUSToolkit 
     ADD FILEGROUP MemoryOptimizedFG CONTAINS MEMORY_OPTIMIZED_DATA;
     
-    ALTER DATABASE SSUSToolkit 
-    ADD FILE (NAME = 'MemoryOptimizedData', FILENAME = 'C:\SQLData\SSUSToolkit_MemoryOptimized')
-    TO FILEGROUP MemoryOptimizedFG;
+    EXEC(N'ALTER DATABASE SSUSToolkit ADD FILE (NAME = N''MemoryOptimizedData'', FILENAME = N''' 
+         + @DataPath + N'SSUSToolkit_MemoryOptimized'') TO FILEGROUP MemoryOptimizedFG;');
     
     PRINT 'Memory-optimized filegroup added.';
 END

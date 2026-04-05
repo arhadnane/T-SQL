@@ -39,11 +39,6 @@ GO
 USE [SSUSToolkit];
 GO
 
--- Idempotent objects
-IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = N'dbo')
-    EXEC('CREATE SCHEMA dbo');
-GO
-
 -- Tables: Customers, Products, Orders, OrderItems
 IF OBJECT_ID('dbo.Customers') IS NULL
 BEGIN

@@ -7,11 +7,13 @@ Requires SSUSToolkit created by SampleToolkit scripts.
 USE SSUSToolkit;
 GO
 
--- Customers per country/city (basic counts)
-SELECT Country, City, COUNT(*) AS Customers
+-- Customers by registration month
+SELECT 
+    FORMAT(CreatedAt, 'yyyy-MM') AS RegistrationMonth,
+    COUNT(*) AS Customers
 FROM dbo.Customers
-GROUP BY Country, City
-ORDER BY Country, City;
+GROUP BY FORMAT(CreatedAt, 'yyyy-MM')
+ORDER BY RegistrationMonth;
 
 -- Product price stats
 SELECT 

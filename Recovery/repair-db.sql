@@ -18,7 +18,7 @@ WHILE (@i <= @cnt)
 BEGIN
     SELECT TOP 1 @DatabaseName = d.name
     FROM master.sys.databases d
-    WHERE d.database_id > 5 AND d.database_id = @i + 4;
+    WHERE d.database_id > 4 AND d.database_id = @i + 4;
 
     IF (@DatabaseName IS NOT NULL AND @DatabaseName <> '')
     BEGIN
